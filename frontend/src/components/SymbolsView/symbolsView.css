@@ -1,0 +1,55 @@
+.symbolsView {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.symbolsView__content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.symbolsView__chart {
+  width: 100%;
+}
+
+.symbolsView__cards {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.symbolsView__cards * {
+  max-width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .symbolsView__content {
+    flex-direction: row-reverse;
+    gap: 24px;
+  }
+
+  .symbolsView__chart {
+    width: 400px;
+    flex-shrink: 0;
+    order: 1;
+  }
+
+  .symbolsView__cards {
+    flex-grow: 1;
+    order: 2;
+    height: 100%;
+  }
+}
