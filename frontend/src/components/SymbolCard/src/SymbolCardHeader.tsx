@@ -13,13 +13,7 @@ const SymbolCardHeader = memo(({ id, price, trend }: SymbolCardHeaderProps) => (
   <div className="symbolCard--header">
     <div className="symbolCard--header__title">{id}</div>
     <div className="symbolCard--header__trend">
-      {!!price && (
-        <img
-          src={trend === 'DOWN' ? TrendDownImg : TrendUpImg}
-          alt={`Trend ${trend}`}
-          className="trend-icon"
-        />
-      )}
+      {!!price && <img src={trend === 'DOWN' ? TrendDownImg : TrendUpImg} alt={`Trend ${trend}`} />}
     </div>
   </div>
 ));

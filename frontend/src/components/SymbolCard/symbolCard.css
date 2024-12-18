@@ -2,7 +2,6 @@
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -12,9 +11,15 @@
   height: 100%;
 }
 
+.symbolCard--body {
+  padding: 0 8px 4px;
+}
+
+/* Animations */
+
 .symbolCard--selected {
   transform: scale(1.02);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
 }
 
 .symbolCard--unselected {
@@ -22,13 +27,11 @@
   opacity: 0.9;
 }
 
-/* Green Glow Effect */
 .symbolCard--greenGlow {
   box-shadow: 0 0 20px 5px rgba(0, 255, 0, 0.5);
   transition: box-shadow 1s ease;
 }
 
-/* Red Glow Effect */
 .symbolCard--redGlow {
   box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.5);
   transition: box-shadow 1s ease;

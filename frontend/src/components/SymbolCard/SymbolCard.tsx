@@ -48,14 +48,16 @@ const SymbolCard = memo(({ id, onClick, price, isSelected, isAnySelected }: Symb
           } ${glow === 'red' ? 'symbolCard--redGlow' : ''}`}
         >
           <SymbolCardHeader id={id} price={price} trend={trend} />
-          <SymbolCardPrice price={price} />
-          {showCardInfo && (
-            <SymbolCardInfo
-              companyName={companyName}
-              industry={industry}
-              marketCap={`${marketCap}`}
-            />
-          )}
+          <div className="symbolCard--body">
+            <SymbolCardPrice price={price} />
+            {showCardInfo && (
+              <SymbolCardInfo
+                companyName={companyName}
+                industry={industry}
+                marketCap={`${marketCap}`}
+              />
+            )}
+          </div>
         </div>
       )}
     </AnimationWrapper>
