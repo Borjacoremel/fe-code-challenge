@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import TrendDownImg from '@/assets/down.png';
 import TrendUpImg from '@/assets/up.png';
-import './cardHeader.css';
+import './symbolCardHeader.css';
 
 type SymbolCardHeaderProps = {
   id: string;
