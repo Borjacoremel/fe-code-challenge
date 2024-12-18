@@ -1,11 +1,16 @@
+import { useState } from 'react';
 import SymbolsGrid from '@/components/SymbolsGrid';
 import PriceChart from '@/components/PriceChart';
+import { useAppSelector } from '@/hooks/redux';
+import { selectSelectedSymbol } from '@/store/dashboardOptionsSlice';
 import DesktopInfo from './src/DesktopInfo';
-import { useState } from 'react';
 import './symbolsView.css';
 
 const SymbolsView = () => {
-  const [activeSymbol, setActiveSymbol] = useState<null | string>(null);
+  const selectedSymbol = useAppSelector(selectSelectedSymbol);
+
+  const [activeSymbol, setActiveSymbol] = useState<null | string>(selectedSymbol || null);
+
   const handleSymbolClick = (symbolId: string) => {
     setActiveSymbol((s) => (s === symbolId ? null : symbolId));
   };
