@@ -3,13 +3,13 @@ import TrendDownImg from '@/assets/down.png';
 import TrendUpImg from '@/assets/up.png';
 import './cardHeader.css';
 
-type CardHeaderProps = {
+type SymbolCardHeaderProps = {
   id: string;
   price: number;
   trend: 'UP' | 'DOWN' | null;
 };
 
-const CardHeader = memo(({ id, price, trend }: CardHeaderProps) => (
+const SymbolCardHeader = memo(({ id, price, trend }: SymbolCardHeaderProps) => (
   <div className="symbolCard--header">
     <div className="symbolCard--header__title">{id}</div>
     <div className="symbolCard--header__trend">
@@ -24,6 +24,6 @@ const CardHeader = memo(({ id, price, trend }: CardHeaderProps) => (
   </div>
 ));
 
-CardHeader.displayName = 'CardHeader';
+SymbolCardHeader.displayName = 'SymbolCardHeader';
 
-export default CardHeader;
+export default SymbolCardHeader;
