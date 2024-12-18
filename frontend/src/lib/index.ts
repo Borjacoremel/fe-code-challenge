@@ -1,2 +1,1 @@
-// import { x } from './x';
-// export { x };
+export { stockTypes } from './types';
