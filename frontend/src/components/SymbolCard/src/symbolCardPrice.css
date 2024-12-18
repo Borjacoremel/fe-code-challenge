@@ -1,0 +1,16 @@
+.symbolCardPrice {
+  padding: 5px;
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.symbolCardPrice--priceTitle {
+  font-weight: semibold;
+}
+
+.symbolCardPrice--priceValue {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
