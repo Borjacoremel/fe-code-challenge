@@ -14,7 +14,7 @@ type StockEntry = {
   [key: string]: Stock;
 };
 
-type StocksState = {
+export type StocksState = {
   entities: StockEntry;
   ids: string[];
   apiState: {

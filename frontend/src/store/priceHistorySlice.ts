@@ -11,7 +11,7 @@ type PriceHistoryResponse = {
   history: historyEntry[];
 };
 
-type PriceHistoryState = {
+export type PriceHistoryState = {
   symbol: string | null;
   history: historyEntry[];
   apiState: {

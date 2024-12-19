@@ -7,8 +7,13 @@ type AnimationWrapperProps = {
 
 const AnimationWrapper = ({ price, children }: AnimationWrapperProps) => {
   const prevPriceRef = useRef<number | null>(null);
-  const [shake, setShake] = useState(false);
-  const [glow, setGlow] = useState<'green' | 'red' | ''>('');
+  const [animationState, setAnimationState] = useState<{
+    shake: boolean;
+    glow: 'green' | 'red' | '';
+  }>({
+    shake: false,
+    glow: ''
+  });
 
   useEffect(() => {
     if (prevPriceRef.current === null) {
@@ -19,27 +24,25 @@ const AnimationWrapper = ({ price, children }: AnimationWrapperProps) => {
     const priceChange = price - prevPriceRef.current;
     const percentageChange = (Math.abs(priceChange) / prevPriceRef.current) * 100;
 
-    if (percentageChange >= 75) {
-      setShake(true);
-    }
+    setAnimationState({
+      shake: percentageChange >= 75,
+      glow: priceChange > 0 ? 'green' : priceChange < 0 ? 'red' : ''
+    });
 
-    if (priceChange > 0) {
-      setGlow('green');
-    } else if (priceChange < 0) {
-      setGlow('red');
-    }
+    const glowTimer = setTimeout(() => {
+      setAnimationState((prev) => ({ ...prev, glow: '' }));
+    }, 1000);
 
-    const glowTimer = setTimeout(() => setGlow(''), 1000);
     prevPriceRef.current = price;
 
     return () => clearTimeout(glowTimer);
   }, [price]);
 
   const handleAnimationEnd = useCallback(() => {
-    setShake(false);
+    setAnimationState((prev) => ({ ...prev, shake: false }));
   }, []);
 
-  return <>{children(shake, glow, handleAnimationEnd)}</>;
+  return <>{children(animationState.shake, animationState.glow, handleAnimationEnd)}</>;
 };
 
 export default AnimationWrapper;

@@ -1,13 +1,15 @@
-import './symbolCard.css';
+import React, { Suspense } from 'react';
 import { ReactComponent as CompanyIcon } from '@/assets/company.svg';
 import { useAppSelector } from '@/hooks/redux';
 import { selectShowCardInfo } from '@/store/dashboardOptionsSlice';
-import { selectSymbolCardData } from './src/selectors/symbolCardSelector';
+import { makeSelectSymbolCardData } from './src/selectors/symbolCardSelector';
 import SymbolCardHeader from './src/SymbolCardHeader';
 import SymbolCardPrice from './src/SymbolCardPrice';
 import SymbolCardInfo from './src/SymbolCardInfo';
 import { memo, useCallback, useMemo } from 'react';
-import AnimationWrapper from './src/AnimationWrapper';
+import './symbolCard.css';
+
+const AnimationWrapper = React.lazy(() => import('./src/AnimationWrapper'));
 
 type SymbolCardProps = {
   id: string;
@@ -18,7 +20,8 @@ type SymbolCardProps = {
 };
 
 const SymbolCard = memo(({ id, onClick, price, isSelected, isAnySelected }: SymbolCardProps) => {
-  const symbolData = useAppSelector((state) => selectSymbolCardData(state, id));
+  const selectSymbolCardDataMemoized = useMemo(makeSelectSymbolCardData, []);
+  const symbolData = useAppSelector((state) => selectSymbolCardDataMemoized(state, id));
   const showCardInfo = useAppSelector(selectShowCardInfo);
 
   const { trend, companyName, industry, marketCap } = symbolData;
@@ -38,29 +41,31 @@ const SymbolCard = memo(({ id, onClick, price, isSelected, isAnySelected }: Symb
   }, [isSelected, isAnySelected]);
 
   return (
-    <AnimationWrapper price={price}>
-      {(shake, glow, handleAnimationEnd) => (
-        <div
-          onClick={handleOnClick}
-          onAnimationEnd={handleAnimationEnd}
-          className={`${cardClassName} ${shake ? 'symbolCard__shake' : ''} ${
-            glow === 'green' ? 'symbolCard--greenGlow' : ''
-          } ${glow === 'red' ? 'symbolCard--redGlow' : ''}`}
-        >
-          <SymbolCardHeader id={id} price={price} trend={trend} />
-          <div className="symbolCard--body">
-            <SymbolCardPrice price={price} />
-            {showCardInfo && (
-              <SymbolCardInfo
-                companyName={companyName}
-                industry={industry}
-                marketCap={`${marketCap}`}
-              />
-            )}
+    <Suspense fallback={<div>Loading animation...</div>}>
+      <AnimationWrapper price={price}>
+        {(shake, glow, handleAnimationEnd) => (
+          <div
+            onClick={handleOnClick}
+            onAnimationEnd={handleAnimationEnd}
+            className={`${cardClassName} ${shake ? 'symbolCard__shake' : ''} ${
+              glow === 'green' ? 'symbolCard--greenGlow' : ''
+            } ${glow === 'red' ? 'symbolCard--redGlow' : ''}`}
+          >
+            <SymbolCardHeader id={id} price={price} trend={trend} />
+            <div className="symbolCard--body">
+              <SymbolCardPrice price={price} />
+              {showCardInfo && (
+                <SymbolCardInfo
+                  companyName={companyName}
+                  industry={industry}
+                  marketCap={`${marketCap}`}
+                />
+              )}
+            </div>
           </div>
-        </div>
-      )}
-    </AnimationWrapper>
+        )}
+      </AnimationWrapper>
+    </Suspense>
   );
 });
 

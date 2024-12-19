@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface StoreState {
+export interface StoreState {
   activeSymbol: string | null;
   showCardInfo: boolean;
   selectedSymbol: string | null;
